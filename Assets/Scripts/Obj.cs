@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -82,9 +81,13 @@ public class Obj : MonoBehaviour
         hp--;
         coll.enabled = false;
         sprite.SetActive(false);
+
+        //add position back to the list before getting new one, so it MIGHT get the same position
         Controller.Instance.positions.Add(myPos);
         if (hp > 0) {
+            //darken the color for a better visibility of hp
             sr.color = new Color(.55f*sr.color.r , .55f * sr.color.g, .55f * sr.color.b);
+
             myPos = Controller.Instance.GetNewPosition();
             Invoke(nameof(Respawn), 2f);
         } else {

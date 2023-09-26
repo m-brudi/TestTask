@@ -18,13 +18,13 @@ public class Pooler : MonoBehaviour {
         bulletPool = new ObjectPool<Bullet>(CreateBullet,
             bull => { bull?.gameObject.SetActive(true); },
             bull => { bull?.gameObject.SetActive(false); },
-            bull => {  }, //Destroy(bull.gameObject);
+            bull => {  },
             false, bulletCapacity, bulletMaxSize);
 
         objPool = new ObjectPool<Obj>(CreateObj,
             obj => { obj?.gameObject.SetActive(true); },
             obj => { obj?.gameObject.SetActive(false); },
-            obj => {  }, //Destroy(obj.gameObject);
+            obj => {  },
             false, objCapacity, objMaxSize);
     }
     private Obj CreateObj() {

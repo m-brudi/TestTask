@@ -18,11 +18,13 @@ public class Controller : SingletonMonoBehaviour<Controller>
 
     void Start()
     {
-        uiManager.SetupMenuPanel();
+        //get screen size for grid setup
         Vector3 screen = Camera.main.ScreenToWorldPoint(Vector3.zero);
         sizeX = Mathf.FloorToInt(Mathf.Abs(screen.x));
         sizeY = Mathf.FloorToInt(Mathf.Abs(screen.y));
         SetupGridSize(500);
+
+        uiManager.SetupMenuPanel();
         numOfAliveObjs = 0;
     }
     
@@ -39,16 +41,12 @@ public class Controller : SingletonMonoBehaviour<Controller>
     }
 
     int GetObjColorIndex(int num) {
-        switch (num) {
-            case 50:
-                return 0;
-            case 100:
-                return 1;
-            case 250:
-                return 2;
-            default:
-                return 3;
-        }
+        return num switch {
+            50 => 0,
+            100 => 1,
+            250 => 2,
+            _ => 3,
+        };
     }
 
     public void StartGame(int numOfObjects) {
@@ -70,12 +68,14 @@ public class Controller : SingletonMonoBehaviour<Controller>
     }
 
     public Vector3 GetNewPosition() {
+        //choose new random position for obj
         Vector3 pos = positions[UnityEngine.Random.Range(0, positions.Count)];
         positions.Remove(pos);
         return pos;
     }
     
     public void ObjDied() {
+        //check if its the last obj standing, if so finish game
         numOfAliveObjs--;
         if (numOfAliveObjs == 1 && gameOn) StartCoroutine(DelayGameOver());
     }
@@ -85,6 +85,7 @@ public class Controller : SingletonMonoBehaviour<Controller>
     }
 
     IEnumerator DelayGameOver() {
+        //just for the effect
         gameOn = false;
         yield return new WaitForSeconds(1);
         GameOver();

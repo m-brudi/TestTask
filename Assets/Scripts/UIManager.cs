@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
@@ -52,13 +50,6 @@ public class UIManager : MonoBehaviour
         gameOverPanel.SetActive(true);
         mainMenuBtn.onClick.RemoveAllListeners();
         mainMenuBtn.onClick.AddListener(() => SetupMenuPanel());
-    }
-    void HideMenu() {
-        menuPanel.SetActive(false);
-    }
-
-    void HideGameOver() {
-        gameOverPanel.SetActive(false);
     }
 
     void ResetMenuButtons() {
